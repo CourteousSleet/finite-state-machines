@@ -1,6 +1,5 @@
 #include "stdio.h"
 #include "stdbool.h"
-#include <string.h>
 
 #define MAX_STRING_LENGTH 1024
 
@@ -36,16 +35,13 @@ state_t transition(state_t current_state, char input) {
 
 
 int main() {
-  // Input string to be checked
   char input[MAX_STRING_LENGTH];
   printf("Enter the input string: ");
   scanf("%s", input);
 
-  // Initialize state machine
   state_t current = STATE_INITIAL;
   int len = strlen(input);
 
-  // Traverse the input string and update state machine
   for (int i = 0; i < len; i++) {
     current = transition(current, input[i]);
   }
