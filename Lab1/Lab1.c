@@ -48,14 +48,19 @@ state_t transition(state_t current_state, char input) {
 int main() {
   char input[MAX_STRING_LENGTH];
   printf("Enter the input string: ");
-  scanf("%s", input);
+  fgets(input, sizeof(input), stdin);
+
+  if (input[0] == '\n') {
+    printf("Empty string.\nString rejected.\n");
+    return 1;
+  }
 
   state_t current = STATE_INITIAL;
   int len = strlen(input);
 
   printf("q1 --> ");
 
-  for (int i = 0; i < len; i++) {
+  for (int i = 0; i < len - 1; i++) {
     current = transition(current, input[i]);
     if (current == STATE_ILLEGAL) break;
     char* state = get_states(current);
@@ -67,9 +72,11 @@ int main() {
   if (current == STATE_ACCEPT) {
     printf("String accepted.\n");
     return 0;
-  }
-  else
+  } else if (current == STATE_ILLEGAL) {
+    printf("Illegal alphabet. String rejected.\n");
+  } else {
     printf("String rejected.\n");
+  }
 
   return 0;
 }
